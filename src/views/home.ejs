@@ -1,0 +1,22 @@
+<section class="text-center py-5 bg-light rounded">
+  <h1 class="display-5 fw-bold">Welcome to Toy Shop</h1>
+  <p class="lead">Find delightful toys for kids of all ages.</p>
+  <a href="/shop" class="btn btn-primary btn-lg">Shop Now</a>
+</section>
+<section class="mt-5">
+  <h2 class="h4 mb-3">Featured Toys</h2>
+  <div class="row g-4">
+    <% products.slice(0,3).forEach(function(p){ %>
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img src="<%= p.image %>" class="card-img-top" alt="<%= p.name %>">
+          <div class="card-body">
+            <h5 class="card-title"><%= p.name %></h5>
+            <p class="card-text">$<%= p.price.toFixed(2) %></p>
+            <a href="/product/<%= p.id %>" class="btn btn-outline-primary">View</a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</section>

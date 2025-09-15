@@ -1,0 +1,21 @@
+<h1>Contact Us</h1>
+<% if (typeof submitted !== 'undefined' && submitted) { %>
+  <div class="alert alert-success mt-3">Thanks! We'll get back to you soon.</div>
+<% } %>
+<form class="row g-3 mt-1" method="post" action="/contact">
+  <div class="col-md-6">
+    <label class="form-label">Name</label>
+    <input class="form-control" name="name" required>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Email</label>
+    <input type="email" class="form-control" name="email" required>
+  </div>
+  <div class="col-12">
+    <label class="form-label">Message</label>
+    <textarea class="form-control" rows="4" name="message" required></textarea>
+  </div>
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit">Send</button>
+  </div>
+</form>
