@@ -1,0 +1,56 @@
+<h1 class="mb-4">Your Cart</h1>
+<% const items = Object.values(cart.items || {}); %>
+<% if (!items.length) { %>
+  <div class="alert alert-info">Your cart is empty. <a href="/shop">Start shopping</a>.</div>
+<% } else { %>
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th style="width:140px">Qty</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% items.forEach(function(it){ %>
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-3">
+                <img src="<%= it.image %>" alt="" style="width:64px;height:48px;object-fit:cover" class="rounded">
+                <a href="/product/<%= it.id %>" class="text-decoration-none"><%= it.name %></a>
+              </div>
+            </td>
+            <td>$<%= it.price.toFixed(2) %></td>
+            <td>
+              <form method="post" action="/cart/update" class="d-flex gap-2">
+                <input type="hidden" name="id" value="<%= it.id %>">
+                <input type="number" class="form-control" name="qty" min="0" value="<%= it.qty %>" style="max-width:90px">
+                <button class="btn btn-outline-primary" type="submit">Update</button>
+              </form>
+            </td>
+            <td>$<%= (it.qty * it.price).toFixed(2) %></td>
+            <td>
+              <form method="post" action="/cart/remove">
+                <input type="hidden" name="id" value="<%= it.id %>">
+                <button class="btn btn-outline-danger btn-sm" type="submit">Remove</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-between align-items-center mt-3">
+    <a href="/shop" class="btn btn-link">Continue Shopping</a>
+    <div class="text-end">
+      <div class="h5 mb-3">Subtotal: $<%= cart.totalPrice.toFixed(2) %></div>
+      <form method="post" action="/cart/clear" class="d-inline">
+        <button class="btn btn-outline-secondary" type="submit">Clear Cart</button>
+      </form>
+      <button class="btn btn-success ms-2" disabled>Checkout</button>
+    </div>
+  </div>
+<% } %>
